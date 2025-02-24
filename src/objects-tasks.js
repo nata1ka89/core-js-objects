@@ -198,8 +198,20 @@ function sellTickets(queue) {
  *    console.log(r.height);      // => 20
  *    console.log(r.getArea());   // => 200
  */
-function Rectangle(/* width, height */) {
-  throw new Error('Not implemented');
+
+class GetRectangle {
+  constructor(width, height) {
+    this.width = width;
+    this.height = height;
+  }
+
+  getArea() {
+    return this.width * this.height;
+  }
+}
+function Rectangle(width, height) {
+  const Rectangle1 = new GetRectangle(width, height);
+  return Rectangle1;
 }
 
 /**
@@ -212,8 +224,8 @@ function Rectangle(/* width, height */) {
  *    [1,2,3]   =>  '[1,2,3]'
  *    { height: 10, width: 20 } => '{"height":10,"width":20}'
  */
-function getJSON(/* obj */) {
-  throw new Error('Not implemented');
+function getJSON(obj) {
+  return JSON.stringify(obj);
 }
 
 /**
@@ -227,8 +239,9 @@ function getJSON(/* obj */) {
  *    const r = fromJSON(Circle.prototype, '{"radius":10}');
  *
  */
-function fromJSON(/* proto, json */) {
-  throw new Error('Not implemented');
+function fromJSON(proto, json) {
+  const newObj = Object.create(proto);
+  return Object.assign(newObj, JSON.parse(json));
 }
 
 /**
@@ -257,8 +270,22 @@ function fromJSON(/* proto, json */) {
  *      { country: 'Russia',  city: 'Saint Petersburg' }
  *    ]
  */
-function sortCitiesArray(/* arr */) {
-  throw new Error('Not implemented');
+function sortCitiesArray(arr) {
+  arr.sort((a, b) => {
+    const countryA = a.country.toUpperCase();
+    const countryB = b.country.toUpperCase();
+    if (countryA < countryB) return -1;
+    if (countryA > countryB) return 1;
+    if (countryA === countryB) {
+      const cityA = a.city.toUpperCase();
+      const cityB = b.city.toUpperCase();
+      if (cityA < cityB) return -1;
+      if (cityA > cityB) return 1;
+      return 0;
+    }
+    return 0;
+  });
+  return arr;
 }
 
 /**

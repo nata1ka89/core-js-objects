@@ -318,10 +318,19 @@ function sortCitiesArray(arr) {
  *    "Poland" => ["Lodz"]
  *   }
  */
-function group(/* array, keySelector, valueSelector */) {
-  throw new Error('Not implemented');
+function group(array, keySelector, valueSelector) {
+  const newMap = new Map();
+  array.forEach((obj) => {
+    const key = keySelector(obj);
+    const value = valueSelector(obj);
+    if (newMap.has(key)) {
+      newMap.get(key).push(value);
+    } else {
+      newMap.set(key, [value]);
+    }
+  });
+  return newMap;
 }
-
 /**
  * Css selectors builder
  *
@@ -375,34 +384,35 @@ function group(/* array, keySelector, valueSelector */) {
  *
  *  For more examples see unit tests.
  */
+const CssSelector = require('./css-class');
 
 const cssSelectorBuilder = {
-  element(/* value */) {
-    throw new Error('Not implemented');
+  element(value) {
+    return new CssSelector().element(value);
   },
 
-  id(/* value */) {
-    throw new Error('Not implemented');
+  id(value) {
+    return new CssSelector().id(value);
   },
 
-  class(/* value */) {
-    throw new Error('Not implemented');
+  class(value) {
+    return new CssSelector().class(value);
   },
 
-  attr(/* value */) {
-    throw new Error('Not implemented');
+  attr(value) {
+    return new CssSelector().attr(value);
   },
 
-  pseudoClass(/* value */) {
-    throw new Error('Not implemented');
+  pseudoClass(value) {
+    return new CssSelector().pseudoClass(value);
   },
 
-  pseudoElement(/* value */) {
-    throw new Error('Not implemented');
+  pseudoElement(value) {
+    return new CssSelector().pseudoElement(value);
   },
 
-  combine(/* selector1, combinator, selector2 */) {
-    throw new Error('Not implemented');
+  combine(selector1, combinator, selector2) {
+    return new CssSelector().combine(selector1, combinator, selector2);
   },
 };
 
